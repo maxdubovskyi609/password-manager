@@ -9,8 +9,17 @@ root.geometry('500x600')
 root.resizable(False, False)
 root.configure(fg_color='#121A27')
 set_appearance_mode('dark')
-
 root.grid_columnconfigure(0, weight=1)
+
+
+BTN_COLOR = '#1E2736'
+BTN_BORDER = "#364051"
+DANGER_COLOR = "#660917"
+DANGER_BORDER = "#9C0017"
+
+FONT_TITLE = ('Sergoe UI', 25, 'bold' )
+FONT_BTN = ("Segoe UI", 15, "bold")
+FONT = ("Arial", 16)
 
 
 # ЗОБРАЖЕННЯ
@@ -54,19 +63,19 @@ def add_window():
     window.geometry('370x380')
     window.grid_columnconfigure(0, weight=1)
     
-    title = CTkLabel(window, text = 'Add Password', font=( 'Sergoe UI', 25, 'bold' ) )
+    title = CTkLabel(window, text = 'Add Password', font=FONT_TITLE )
     title.grid(row=0, column=0, pady=(15, 15))
     
-    website_entry = CTkEntry(window, width=310, height=55, placeholder_text='Website', font=('Arial', 16))
+    website_entry = CTkEntry(window, width=310, height=55, placeholder_text='Website', font=FONT)
     website_entry.grid(row=1, column=0, pady=5)
 
-    login_entry = CTkEntry(window, width=310, height=55, placeholder_text='Login', font=('Arial', 16))
+    login_entry = CTkEntry(window, width=310, height=55, placeholder_text='Login', font=FONT)
     login_entry.grid(row=2, column=0, pady=5)
         
-    password_entry = CTkEntry(window, width=310, height=55, placeholder_text='Password', font=('Arial', 16))
+    password_entry = CTkEntry(window, width=310, height=55, placeholder_text='Password', font=FONT)
     password_entry.grid(row=3, column=0, pady=5)
     
-    message_label = CTkLabel(window, text='', font=('Sergoe UI', 14))
+    message_label = CTkLabel(window, text='', font=FONT)
     message_label.grid(row=5, column=0, pady=(10, 0))
     
     def save_password():
@@ -82,24 +91,25 @@ def add_window():
              password_entry.delete(0, 'end')
              message_label.configure(text='Password added successfully!✅')
         
-    add_btn = CTkButton(window, text='Add', width=210, height=55, font=('Sergoe UI', 16), command=save_password)
+    add_btn = CTkButton(window, text='Add', width=210, height=55, font=FONT, command=save_password)
     add_btn.grid(row=4, column=0, pady=(30, 0))
 
 def view_passwords():
+    FG_COLOR = '#242424'
     window = CTkToplevel(root)
     window.title('View Passwords')
     window.geometry('350x400')
     window.resizable(False, False)
-    window.configure(fg_color='#182232')
+    window.configure(fg_color=FG_COLOR)
     window.grid_columnconfigure(0, weight=1)
     
-    title = CTkLabel(window, text='Passwords', font=('Segoe UI', 25, 'bold'))
+    title = CTkLabel(window, text='Passwords', font=FONT_TITLE)
     title.grid(row=0, column=0)
     
     line = CTkLabel(window, text='_____________________________________________________________', anchor='n' )
     line.grid(row=1, column=0, sticky='n')
     
-    scroll_frame = CTkScrollableFrame(window, width=350, height=350, fg_color="#182232")
+    scroll_frame = CTkScrollableFrame(window, width=350, height=350, fg_color=FG_COLOR)
     scroll_frame.grid(row=2, column=0)
     scroll_frame.grid_columnconfigure(0, weight=1)
     
@@ -120,13 +130,13 @@ def find_window():
     window.geometry('370x380')
     window.grid_columnconfigure(0, weight=1)
     
-    title = CTkLabel(window, text = 'Find Password', font=( 'Sergoe UI', 25, 'bold' ) )
+    title = CTkLabel(window, text = 'Find Password', font=FONT_TITLE )
     title.grid(row=0, column=0, pady=(15, 15))
     
-    website_entry = CTkEntry(window, width=310, height=55, placeholder_text='Website', font=('Arial', 16))
+    website_entry = CTkEntry(window, width=310, height=55, placeholder_text='Website', font=FONT)
     website_entry.grid(row=1, column=0, pady=5)
 
-    login_entry = CTkEntry(window, width=310, height=55, placeholder_text='Login', font=('Arial', 16))
+    login_entry = CTkEntry(window, width=310, height=55, placeholder_text='Login', font=FONT)
     login_entry.grid(row=2, column=0, pady=5)
     
     
@@ -150,7 +160,7 @@ def find_window():
             password_textbox.configure(state='disabled')
             
         
-    add_btn = CTkButton(window, text='Search', width=210, height=55, font=('Sergoe UI', 16), command=find_password)
+    add_btn = CTkButton(window, text='Search', width=210, height=55, font=FONT, command=find_password)
     add_btn.grid(row=3, column=0, pady=20)
 
     password_textbox.configure(state='disabled')
@@ -164,19 +174,19 @@ def change_window():
     window.resizable(False, False)
     window.grid_columnconfigure(0, weight=1)
     
-    title = CTkLabel(window, text = 'Change Password', font=( 'Sergoe UI', 25, 'bold' ) )
+    title = CTkLabel(window, text = 'Change Password', font=FONT_TITLE )
     title.grid(row=0, column=0, pady=(15, 15))
     
-    website_entry = CTkEntry(window, width=310, height=55, placeholder_text='Website', font=('Arial', 16))
+    website_entry = CTkEntry(window, width=310, height=55, placeholder_text='Website', font=FONT)
     website_entry.grid(row=1, column=0, pady=5)
 
-    login_entry = CTkEntry(window, width=310, height=55, placeholder_text='Login', font=('Arial', 16))
+    login_entry = CTkEntry(window, width=310, height=55, placeholder_text='Login', font=FONT)
     login_entry.grid(row=2, column=0, pady=5)
     
-    new_password__entry = CTkEntry(window, width=310, height=55, placeholder_text='New Password', font=('Arial', 16))
+    new_password__entry = CTkEntry(window, width=310, height=55, placeholder_text='New Password', font=FONT)
     new_password__entry.grid(row=3, column=0, pady=5)
     
-    message_label = CTkLabel(window, text='', font=('Sergoe UI', 14))
+    message_label = CTkLabel(window, text='', font=FONT)
     message_label.grid(row=5, column=0)
     
     def change_password():
@@ -196,7 +206,7 @@ def change_window():
         new_password__entry.delete(0, 'end')
         
         
-    change_btn = CTkButton(window, text='Change',  width=210, height=55, font=('Sergoe UI', 16), command=change_password)
+    change_btn = CTkButton(window, text='Change',  width=210, height=55, font=FONT, command=change_password)
     change_btn.grid(row=4, column=0, pady=5)
     
     
@@ -207,16 +217,16 @@ def delete_window():
     window.resizable(False, False)
     window.grid_columnconfigure(0, weight=1)
     
-    title = CTkLabel(window, text = 'Delete Password', font=( 'Sergoe UI', 25, 'bold' ) )
+    title = CTkLabel(window, text = 'Delete Password', font=FONT_TITLE )
     title.grid(row=0, column=0, pady=(15, 15))
     
-    website_entry = CTkEntry(window, width=310, height=55, placeholder_text='Website', font=('Arial', 16))
+    website_entry = CTkEntry(window, width=310, height=55, placeholder_text='Website', font=FONT)
     website_entry.grid(row=1, column=0, pady=5)
 
-    login_entry = CTkEntry(window, width=310, height=55, placeholder_text='Login', font=('Arial', 16))
+    login_entry = CTkEntry(window, width=310, height=55, placeholder_text='Login', font=FONT)
     login_entry.grid(row=2, column=0, pady=5)
     
-    message_label = CTkLabel(window, text='', font=('Sergoe UI', 14))
+    message_label = CTkLabel(window, text='', font=FONT)
     message_label.grid(row=4, column=0)
 
     def delete_password1():
@@ -234,7 +244,7 @@ def delete_window():
     
         
         
-    delete_btn = CTkButton(window, text='Delete',  width=210, height=55, font=('Sergoe UI', 16), command=delete_password1)
+    delete_btn = CTkButton(window, text='Delete',  width=210, height=55, font=FONT, command=delete_password1)
     delete_btn.grid(row=3, column=0, pady=20)
 
 def quit():
@@ -254,22 +264,22 @@ title.grid(row=1, column=0, )
 
 
 # КНОПКИ
-add_btn = CTkButton(root, text='Add Password', anchor='w', font=('Segoe UI', 15, 'bold'), width=400, height=60, fg_color='#1E2736', border_width=1, border_color="#364051", image=add_img, command=add_window)
+add_btn = CTkButton(root, text='Add Password', anchor='w', font=FONT_BTN, width=400, height=60, fg_color=BTN_COLOR, border_width=1, border_color=BTN_BORDER, image=add_img, command=add_window)
 add_btn.grid(row=2, column=0, pady=(15, 3))
 
-watch_btn = CTkButton(root, text='View Passwords', anchor='w', font=('Segoe UI', 15, 'bold'), width=400, height=60, fg_color='#1E2736', border_width=1, border_color="#364051", image=watch_img, command=view_passwords)
+watch_btn = CTkButton(root, text='View Passwords', anchor='w', font=FONT_BTN, width=400, height=60, fg_color=BTN_COLOR, border_width=1, border_color=BTN_BORDER, image=watch_img, command=view_passwords)
 watch_btn.grid(row=3, column=0, pady=3)
 
-find_btn = CTkButton(root, text='Find Password', anchor='w', font=('Segoe UI', 15, 'bold'), width=400, height=60, fg_color='#1E2736', border_width=1, border_color="#364051", image=find_img, command=find_window)
+find_btn = CTkButton(root, text='Find Password', anchor='w', font=FONT_BTN, width=400, height=60, fg_color=BTN_COLOR, border_width=1, border_color=BTN_BORDER, image=find_img, command=find_window)
 find_btn.grid(row=4, column=0, pady=3)
 
-change_btn = CTkButton(root, text='Change Password', anchor='w', font=('Segoe UI', 15, 'bold'), width=400, height=60, fg_color='#1E2736', border_width=1, border_color="#364051", image=change_img, command=change_window)
+change_btn = CTkButton(root, text='Change Password', anchor='w', font=FONT_BTN, width=400, height=60, fg_color=BTN_COLOR, border_width=1, border_color=BTN_BORDER, image=change_img, command=change_window)
 change_btn.grid(row=5, column=0, pady=3)
 
-delete_btn = CTkButton(root, text='Delete Password', anchor='w', font=('Segoe UI', 15, 'bold'), width=400, height=60, fg_color='#1E2736', border_width=1, border_color="#364051", image=delete_img, command=delete_window)
+delete_btn = CTkButton(root, text='Delete Password', anchor='w', font=FONT_BTN, width=400, height=60, fg_color=BTN_COLOR, border_width=1, border_color=BTN_BORDER, image=delete_img, command=delete_window)
 delete_btn.grid(row=6, column=0, pady=3)
 
-leave_btn = CTkButton(root, text='Exit', font=('Arial', 16, 'bold'), width=400, height=60, fg_color="#660917", border_width=1, border_color="#9C0017", hover_color="#850B1C", image=leave_img, command=quit)
+leave_btn = CTkButton(root, text='Exit', font=FONT_BTN, width=400, height=60, fg_color=DANGER_COLOR, border_width=1, border_color=DANGER_BORDER, hover_color="#850B1C", image=leave_img, command=quit)
 leave_btn.grid(row=7, column=0, pady=40)
 
 
