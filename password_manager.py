@@ -56,6 +56,11 @@ leave_img = CTkImage(light_image=Image.open('images/leave.png'),
                  size=(40, 40)
                  )
 
+def entry(window, placeholder, row):
+    entry = CTkEntry(window, width=310, height=55, placeholder_text=placeholder, font=FONT)
+    entry.grid(row=row, column=0, pady=5)
+    return entry
+
 # ФУНКЦІЇ
 def add_window():
     window  = CTkToplevel(root)
@@ -65,15 +70,10 @@ def add_window():
     
     title = CTkLabel(window, text = 'Add Password', font=FONT_TITLE )
     title.grid(row=0, column=0, pady=(15, 15))
-    
-    website_entry = CTkEntry(window, width=310, height=55, placeholder_text='Website', font=FONT)
-    website_entry.grid(row=1, column=0, pady=5)
-
-    login_entry = CTkEntry(window, width=310, height=55, placeholder_text='Login', font=FONT)
-    login_entry.grid(row=2, column=0, pady=5)
-        
-    password_entry = CTkEntry(window, width=310, height=55, placeholder_text='Password', font=FONT)
-    password_entry.grid(row=3, column=0, pady=5)
+ 
+    website_entry = entry(window, 'Website', row=1 )
+    login_entry = entry(window, 'Login', row=2)
+    password_entry = entry(window, 'Password', row=3)
     
     message_label = CTkLabel(window, text='', font=FONT)
     message_label.grid(row=5, column=0, pady=(10, 0))
@@ -133,11 +133,8 @@ def find_window():
     title = CTkLabel(window, text = 'Find Password', font=FONT_TITLE )
     title.grid(row=0, column=0, pady=(15, 15))
     
-    website_entry = CTkEntry(window, width=310, height=55, placeholder_text='Website', font=FONT)
-    website_entry.grid(row=1, column=0, pady=5)
-
-    login_entry = CTkEntry(window, width=310, height=55, placeholder_text='Login', font=FONT)
-    login_entry.grid(row=2, column=0, pady=5)
+    website_entry = entry(window, 'Website', row=1)
+    login_entry = entry(window, 'Login', row=2)
     
     
     password_textbox = CTkTextbox(window, width=200, height=40, font=('Arial', 25), )
@@ -176,15 +173,10 @@ def change_window():
     
     title = CTkLabel(window, text = 'Change Password', font=FONT_TITLE )
     title.grid(row=0, column=0, pady=(15, 15))
-    
-    website_entry = CTkEntry(window, width=310, height=55, placeholder_text='Website', font=FONT)
-    website_entry.grid(row=1, column=0, pady=5)
 
-    login_entry = CTkEntry(window, width=310, height=55, placeholder_text='Login', font=FONT)
-    login_entry.grid(row=2, column=0, pady=5)
-    
-    new_password__entry = CTkEntry(window, width=310, height=55, placeholder_text='New Password', font=FONT)
-    new_password__entry.grid(row=3, column=0, pady=5)
+    website_entry = entry(window, 'Website', row=1)
+    login_entry = entry(window, 'Login', row=2)
+    new_password__entry = entry(window, 'New Password', row=3)
     
     message_label = CTkLabel(window, text='', font=FONT)
     message_label.grid(row=5, column=0)
@@ -220,11 +212,8 @@ def delete_window():
     title = CTkLabel(window, text = 'Delete Password', font=FONT_TITLE )
     title.grid(row=0, column=0, pady=(15, 15))
     
-    website_entry = CTkEntry(window, width=310, height=55, placeholder_text='Website', font=FONT)
-    website_entry.grid(row=1, column=0, pady=5)
-
-    login_entry = CTkEntry(window, width=310, height=55, placeholder_text='Login', font=FONT)
-    login_entry.grid(row=2, column=0, pady=5)
+    website_entry = entry(window, 'Website', row=1)
+    login_entry = entry(window, 'Login', row=2)
     
     message_label = CTkLabel(window, text='', font=FONT)
     message_label.grid(row=4, column=0)
