@@ -60,6 +60,23 @@ def entry(window, placeholder, row):
     entry = CTkEntry(window, width=310, height=55, placeholder_text=placeholder, font=FONT)
     entry.grid(row=row, column=0, pady=5)
     return entry
+def main_button(text, image, command, row):
+    btn = CTkButton(root,
+                    text=text,
+                    anchor='w',
+                    font=FONT_BTN,
+                    width=400, height=60,
+                    fg_color=BTN_COLOR,
+                    border_width=1, border_color=BTN_BORDER,
+                    image=image,
+                    command=command
+                    )
+    btn.grid(row=row, column=0, pady=3)
+    return btn
+def second_button(master, text, command, row, pady):
+    btn = CTkButton(master=master, text=text, width=210, height=55, font=FONT, command=command)
+    btn.grid(row=row, column=0, pady=pady)
+    return btn
 
 # ФУНКЦІЇ
 def add_window():
@@ -79,21 +96,21 @@ def add_window():
     message_label.grid(row=5, column=0, pady=(10, 0))
     
     def save_password():
-         website = website_entry.get().strip()
-         login = login_entry.get().strip()
-         password = password_entry.get().strip()
-         if not website or not login or not password:
-             message_label.configure(text='Please fill in all fields!')
-         else:
-             add_password(website, login, password)
-             website_entry.delete(0, 'end')
-             login_entry.delete(0, 'end')
-             password_entry.delete(0, 'end')
-             message_label.configure(text='Password added successfully!✅')
+        website = website_entry.get().strip()
+        login = login_entry.get().strip()
+        password = password_entry.get().strip()
+        if not website or not login or not password:
+            message_label.configure(text='Please fill in all fields!')
+        else:
+            add_password(website, login, password)
+            website_entry.delete(0, 'end')
+            login_entry.delete(0, 'end')
+            password_entry.delete(0, 'end')
+            message_label.configure(text='Password added successfully!✅')
         
-    add_btn = CTkButton(window, text='Add', width=210, height=55, font=FONT, command=save_password)
-    add_btn.grid(row=4, column=0, pady=(30, 0))
-
+    second_button(master=window, text='Add', command=save_password, row=4, pady=(30, 0))
+ 
+ 
 def view_passwords():
     FG_COLOR = '#242424'
     window = CTkToplevel(root)
@@ -156,9 +173,7 @@ def find_window():
             password_textbox.insert('0.0', 'Not found')
             password_textbox.configure(state='disabled')
             
-        
-    add_btn = CTkButton(window, text='Search', width=210, height=55, font=FONT, command=find_password)
-    add_btn.grid(row=3, column=0, pady=20)
+    second_button(master=window, text='Search', command=find_password, row=3, pady=20)
 
     password_textbox.configure(state='disabled')
     password_textbox.grid(row=4, column=0)
@@ -197,9 +212,7 @@ def change_window():
         login_entry.delete(0, 'end')
         new_password__entry.delete(0, 'end')
         
-        
-    change_btn = CTkButton(window, text='Change',  width=210, height=55, font=FONT, command=change_password)
-    change_btn.grid(row=4, column=0, pady=5)
+    second_button(master=window, text='Change', command=change_password, row=4, pady=20)
     
     
 def delete_window():
@@ -230,11 +243,7 @@ def delete_window():
         website_entry.delete(0, 'end')
         login_entry.delete(0, 'end')
     
-    
-        
-        
-    delete_btn = CTkButton(window, text='Delete',  width=210, height=55, font=FONT, command=delete_password1)
-    delete_btn.grid(row=3, column=0, pady=20)
+    second_button(master=window, text='Delete', command=delete_password1, row=3, pady=20)
 
 def quit():
     close_database()
@@ -248,25 +257,16 @@ image_label = CTkLabel(root, image=image, text='')
 image_label.grid(row=0, column=0, pady=(13, 7))
 
 title = CTkLabel(root, text='PASSWORD MANAGER ', font=('Segoe UI', 20, 'bold'))
-title.grid(row=1, column=0, )
+title.grid(row=1, column=0, pady=(0, 12))
 
 
 
 # КНОПКИ
-add_btn = CTkButton(root, text='Add Password', anchor='w', font=FONT_BTN, width=400, height=60, fg_color=BTN_COLOR, border_width=1, border_color=BTN_BORDER, image=add_img, command=add_window)
-add_btn.grid(row=2, column=0, pady=(15, 3))
-
-watch_btn = CTkButton(root, text='View Passwords', anchor='w', font=FONT_BTN, width=400, height=60, fg_color=BTN_COLOR, border_width=1, border_color=BTN_BORDER, image=watch_img, command=view_passwords)
-watch_btn.grid(row=3, column=0, pady=3)
-
-find_btn = CTkButton(root, text='Find Password', anchor='w', font=FONT_BTN, width=400, height=60, fg_color=BTN_COLOR, border_width=1, border_color=BTN_BORDER, image=find_img, command=find_window)
-find_btn.grid(row=4, column=0, pady=3)
-
-change_btn = CTkButton(root, text='Change Password', anchor='w', font=FONT_BTN, width=400, height=60, fg_color=BTN_COLOR, border_width=1, border_color=BTN_BORDER, image=change_img, command=change_window)
-change_btn.grid(row=5, column=0, pady=3)
-
-delete_btn = CTkButton(root, text='Delete Password', anchor='w', font=FONT_BTN, width=400, height=60, fg_color=BTN_COLOR, border_width=1, border_color=BTN_BORDER, image=delete_img, command=delete_window)
-delete_btn.grid(row=6, column=0, pady=3)
+add_btn = main_button('Add Password', image=add_img, command=add_window, row=2)
+watch_btn = main_button('View Passwords', image=watch_img, command=view_passwords, row=3)
+find_btn = main_button('Find Password', image=find_img, command=find_window, row=4)
+change_btn = main_button('Change Password', image=change_img, command=change_window, row=5)
+delete_btn = main_button('Delete Password', image=delete_img, command=delete_window, row=6)
 
 leave_btn = CTkButton(root, text='Exit', font=FONT_BTN, width=400, height=60, fg_color=DANGER_COLOR, border_width=1, border_color=DANGER_BORDER, hover_color="#850B1C", image=leave_img, command=quit)
 leave_btn.grid(row=7, column=0, pady=40)
