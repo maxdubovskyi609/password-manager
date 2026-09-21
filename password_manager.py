@@ -17,7 +17,7 @@ BTN_BORDER = "#364051"
 DANGER_COLOR = "#660917"
 DANGER_BORDER = "#9C0017"
 
-FONT_TITLE = ('Sergoe UI', 25, 'bold' )
+FONT_TITLE = ('Segoe UI', 25, 'bold' )
 FONT_BTN = ("Segoe UI", 15, "bold")
 FONT = ("Arial", 16)
 
@@ -78,12 +78,17 @@ def second_button(master, text, command, row, pady):
     btn.grid(row=row, column=0, pady=pady)
     return btn
 
+def create_window(title, width, height, ):
+    window = CTkToplevel(root)
+    window.title(title)
+    window.geometry(f"{width}x{height}")
+    window.resizable(False, False)
+    window.grid_columnconfigure(0, weight=1)
+    return window
+
 # ФУНКЦІЇ
 def add_window():
-    window  = CTkToplevel(root)
-    window.title('Add Password')
-    window.geometry('370x380')
-    window.grid_columnconfigure(0, weight=1)
+    window = create_window('Add Password', width=370, height=380)
     
     title = CTkLabel(window, text = 'Add Password', font=FONT_TITLE )
     title.grid(row=0, column=0, pady=(15, 15))
@@ -113,13 +118,9 @@ def add_window():
  
 def view_passwords():
     FG_COLOR = '#242424'
-    window = CTkToplevel(root)
-    window.title('View Passwords')
-    window.geometry('350x400')
-    window.resizable(False, False)
+    window = create_window('View Passwords', width=350, height=400)
     window.configure(fg_color=FG_COLOR)
-    window.grid_columnconfigure(0, weight=1)
-    
+
     title = CTkLabel(window, text='Passwords', font=FONT_TITLE)
     title.grid(row=0, column=0)
     
@@ -142,10 +143,7 @@ def view_passwords():
         
         
 def find_window():
-    window  = CTkToplevel(root)
-    window.title('Find Password')
-    window.geometry('370x380')
-    window.grid_columnconfigure(0, weight=1)
+    window = create_window('Find Password', width=370, height=380)
     
     title = CTkLabel(window, text = 'Find Password', font=FONT_TITLE )
     title.grid(row=0, column=0, pady=(15, 15))
@@ -180,18 +178,14 @@ def find_window():
     
     
 def change_window():
-    window  = CTkToplevel(root)
-    window.title('Change Password')
-    window.geometry('370x380')
-    window.resizable(False, False)
-    window.grid_columnconfigure(0, weight=1)
+    window = create_window('Change Password', width=370, height=380)
     
     title = CTkLabel(window, text = 'Change Password', font=FONT_TITLE )
     title.grid(row=0, column=0, pady=(15, 15))
 
     website_entry = entry(window, 'Website', row=1)
     login_entry = entry(window, 'Login', row=2)
-    new_password__entry = entry(window, 'New Password', row=3)
+    new_password_entry = entry(window, 'New Password', row=3)
     
     message_label = CTkLabel(window, text='', font=FONT)
     message_label.grid(row=5, column=0)
@@ -199,7 +193,7 @@ def change_window():
     def change_password():
         website = website_entry.get().strip()
         login = login_entry.get().strip()
-        password = new_password__entry.get().strip()
+        password = new_password_entry.get().strip()
         rowc = update_password(website, login, password)
         if rowc > 0:
             message_label.configure(text='Password changed✅')
@@ -210,17 +204,13 @@ def change_window():
             
         website_entry.delete(0, 'end')
         login_entry.delete(0, 'end')
-        new_password__entry.delete(0, 'end')
+        new_password_entry.delete(0, 'end')
         
     second_button(master=window, text='Change', command=change_password, row=4, pady=20)
     
     
 def delete_window():
-    window  = CTkToplevel(root)
-    window.title('Delete Password')
-    window.geometry('370x320')
-    window.resizable(False, False)
-    window.grid_columnconfigure(0, weight=1)
+    window = create_window('Delete Password', width=370, height=320)
     
     title = CTkLabel(window, text = 'Delete Password', font=FONT_TITLE )
     title.grid(row=0, column=0, pady=(15, 15))
@@ -245,7 +235,7 @@ def delete_window():
     
     second_button(master=window, text='Delete', command=delete_password1, row=3, pady=20)
 
-def quit():
+def exit():
     close_database()
     root.destroy()
         
@@ -268,7 +258,7 @@ find_btn = main_button('Find Password', image=find_img, command=find_window, row
 change_btn = main_button('Change Password', image=change_img, command=change_window, row=5)
 delete_btn = main_button('Delete Password', image=delete_img, command=delete_window, row=6)
 
-leave_btn = CTkButton(root, text='Exit', font=FONT_BTN, width=400, height=60, fg_color=DANGER_COLOR, border_width=1, border_color=DANGER_BORDER, hover_color="#850B1C", image=leave_img, command=quit)
+leave_btn = CTkButton(root, text='Exit', font=FONT_BTN, width=400, height=60, fg_color=DANGER_COLOR, border_width=1, border_color=DANGER_BORDER, hover_color="#850B1C", image=leave_img, command=exit)
 leave_btn.grid(row=7, column=0, pady=40)
 
 
