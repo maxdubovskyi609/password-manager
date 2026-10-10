@@ -1,93 +1,150 @@
 
 from customtkinter import *
 from PIL import Image
-from database import add_password, close_database, get_passwords, update_password, search_password, delete_password
-
-# СТВОРЕННЯ ВІКНА
-root = CTk()
-root.title('Password Manager')
-root.geometry('500x600')
-root.resizable(False, False)
-root.configure(fg_color='#121A27')
-set_appearance_mode('dark')
-root.grid_columnconfigure(0, weight=1)
+from database import PasswordDatabase
 
 
-BTN_COLOR = '#1E2736'
-BTN_BORDER = "#364051"
-DANGER_COLOR = "#660917"
-DANGER_BORDER = "#9C0017"
+class PasswordManagerApp(CTk):
+    BTN_COLOR = '#1E2736'
+    BTN_BORDER = "#364051"
+    DANGER_COLOR = "#660917"
+    DANGER_BORDER = "#9C0017"
+    FONT_TITLE = ('Segoe UI', 25, 'bold' )
+    FONT_BTN = ("Segoe UI", 15, "bold")
+    FONT = ("Arial", 16)
+    
 
-FONT_TITLE = ('Segoe UI', 25, 'bold' )
-FONT_BTN = ("Segoe UI", 15, "bold")
-FONT = ("Arial", 16)
-
-
-# ЗОБРАЖЕННЯ
-logo_img = CTkImage(light_image=Image.open('images/image.png'),
-                 dark_image=Image.open('images/image.png'),
-                 size=(100, 70)
-                 )
-add_img = CTkImage(light_image=Image.open('images/add.png'),
+    def __init__(self):
+        super().__init__()
+        self.title('Password Manager')
+        self.geometry('500x600')
+        self.resizable(False, False)
+        self.configure(fg_color='#121A27')
+        set_appearance_mode('dark')
+        self.grid_columnconfigure(0, weight=1)
+        self.logo_img = CTkImage(light_image=Image.open('images/image.png'),
+                         dark_image=Image.open('images/image.png'),
+                         size=(100, 70)
+                         )
+        self.add_img = CTkImage(light_image=Image.open('images/add.png'),
                  dark_image=Image.open('images/add.png'),
                  size=(40, 40)
                  )
 
-watch_img = CTkImage(light_image=Image.open('images/watch.png'),
-                 dark_image=Image.open('images/watch.png'),
-                 size=(40, 40)
-                 )
-find_img = CTkImage(light_image=Image.open('images/find.png'),
-                 dark_image=Image.open('images/find.png'),
-                 size=(40, 40)
-                 )
+        self.watch_img = CTkImage(light_image=Image.open('images/watch.png'),
+                         dark_image=Image.open('images/watch.png'),
+                         size=(40, 40)
+                         )
+        self.find_img = CTkImage(light_image=Image.open('images/find.png'),
+                        dark_image=Image.open('images/find.png'),
+                         size=(40, 40)
+                         )
+        
+        self.change_img = CTkImage(light_image=Image.open('images/change.png'),
+                         dark_image=Image.open('images/change.png'),
+                         size=(40, 40)
+                         )
+        
+        self.delete_img = CTkImage(light_image=Image.open('images/delete.png'),
+                         dark_image=Image.open('images/delete.png'),
+                         size=(40, 40)
+                         )
+        
+        self.leave_img = CTkImage(light_image=Image.open('images/leave.png'),
+                         dark_image=Image.open('images/leave.png'),
+                         size=(40, 40)
+                         )
+        self.db = PasswordDatabase()
 
-change_img = CTkImage(light_image=Image.open('images/change.png'),
-                 dark_image=Image.open('images/change.png'),
-                 size=(40, 40)
-                 )
+        
+        image_label = CTkLabel(self, image=self.logo_img, text='')
+        image_label.grid(row=0, column=0, pady=(13, 7))
+        title = CTkLabel(self, text='PASSWORD MANAGER ', font=('Segoe UI', 20, 'bold'))
+        title.grid(row=1, column=0, pady=(0, 12))
 
-delete_img = CTkImage(light_image=Image.open('images/delete.png'),
-                 dark_image=Image.open('images/delete.png'),
-                 size=(40, 40)
-                 )
+    def main_button(self, text, image, command, row):
+        btn = CTkButton(self,
+                text=text,
+                anchor='w',
+                font=self.FONT_BTN,
+                width=400, height=60,
+                fg_color=self.BTN_COLOR,
+                border_width=1, border_color=self.BTN_BORDER,
+                image=image,
+                command=command
+                )
+        btn.grid(row=row, column=0, pady=3)
+        return btn
 
-leave_img = CTkImage(light_image=Image.open('images/leave.png'),
-                 dark_image=Image.open('images/leave.png'),
-                 size=(40, 40)
-                 )
+        
+app = PasswordManagerApp()
+
+
+
+
+class BaseWindow(CTkToplevel):
+    def __init__(self, app, title, width, height):
+        super().__init__(app)
+        self.app = app
+        self.title(title)
+        self.geometry(f"{width}x{height}")
+        self.resizable(False, False)
+        self.grid_columnconfigure(0, weight=1)
+
+
+
+
+
+
 
 def entry(window, placeholder, row):
-    entry_field = CTkEntry(window, width=310, height=55, placeholder_text=placeholder, font=FONT)
+    entry_field = CTkEntry(window, width=310, height=55, placeholder_text=placeholder, font=PasswordManagerApp.FONT)
     entry_field.grid(row=row, column=0, pady=5)
     return entry_field
-def main_button(text, image, command, row):
-    btn = CTkButton(root,
-                    text=text,
-                    anchor='w',
-                    font=FONT_BTN,
-                    width=400, height=60,
-                    fg_color=BTN_COLOR,
-                    border_width=1, border_color=BTN_BORDER,
-                    image=image,
-                    command=command
-                    )
-    btn.grid(row=row, column=0, pady=3)
-    return btn
+
 def second_button(master, text, command, row, pady):
-    btn = CTkButton(master=master, text=text, width=210, height=55, font=FONT, command=command)
+    btn = CTkButton(master=master, text=text, width=210, height=55, font=PasswordManagerApp.FONT, command=command)
     btn.grid(row=row, column=0, pady=pady)
     return btn
 
-def create_window(title, width, height, ):
-    window = CTkToplevel(root)
-    window.title(title)
-    window.geometry(f"{width}x{height}")
-    window.resizable(False, False)
-    window.grid_columnconfigure(0, weight=1)
-    return window
-
 # ФУНКЦІЇ
+
+class AddWindow(BaseWindow):
+    def __init__(self, app, title, width, height):
+        super().__init__(app, title, width, height)
+
+        self.title_label = CTkLabel(self, text = 'Add Password', font=PasswordManagerApp.FONT_TITLE )
+        self.title_label.grid(row=0, column=0, pady=(15, 15))
+
+        self.website_entry = entry(self, 'Website', row=1 )
+        self.login_entry = entry(self, 'Login', row=2)
+        self.password_entry = entry(self, 'Password', row=3)
+    
+        self.message_label = CTkLabel(self, text='', font=PasswordManagerApp.FONT)
+        self.message_label.grid(row=5, column=0, pady=(10, 0))
+
+        second_button(master=self, text='Add', command=self.on_add_click, row=4, pady=(30, 0))
+        
+
+    def on_add_click(self):
+        website = self.website_entry.get().strip()
+        login = self.login_entry.get().strip()
+        password = self.password_entry.get().strip()
+        if not website or not login or not password:
+            self.message_label.configure(text='Please fill in all fields!')
+
+        else:
+            added = self.app.db.add_password(website, login, password)
+            if added:
+                self.website_entry.delete(0, 'end')
+                self.login_entry.delete(0, 'end')
+                self.password_entry.delete(0, 'end')
+                self.message_label.configure(text='Password added successfully!✅')
+            else:
+                self.message_label.configure(text='This account already exists❌')
+
+    
+    
 def add_window():
     window = create_window('Add Password', width=370, height=380)
 
@@ -264,11 +321,7 @@ def exit_app():
 
 
 
-image_label = CTkLabel(root, image=logo_img, text='')
-image_label.grid(row=0, column=0, pady=(13, 7))
 
-title = CTkLabel(root, text='PASSWORD MANAGER ', font=('Segoe UI', 20, 'bold'))
-title.grid(row=1, column=0, pady=(0, 12))
 
 
 
@@ -283,4 +336,4 @@ leave_btn = CTkButton(root, text='Exit', font=FONT_BTN, width=400, height=60, fg
 leave_btn.grid(row=7, column=0, pady=40)
 
 
-root.mainloop()
+app.mainloop()
