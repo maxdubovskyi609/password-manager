@@ -1,2 +1,0 @@
-- [User learning context](user_learning_context.md) — 16yo learner, ~3-week window, password_manager is a learning project; favor teaching over doing on learning-focused tasks
-- [Learning mode feedback](feedback_learning_mode.md) — for learning-flagged tasks (e.g. OOP refactor): assess knowledge, discuss theory, let user write the code — don't implement it for them
